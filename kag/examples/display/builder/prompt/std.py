@@ -22,30 +22,50 @@ class OpenIEEntitystandardizationdPrompt(PromptOp):
 {
     "instruction": "input字段包含用户提供的上下文。命名实体字段包含从上下文中提取的命名实体，这些可能是含义不明的缩写、别名或俚语。为了消除歧义，请尝试根据上下文和您自己的知识提供这些实体的官方名称。请注意，具有相同含义的实体只能有一个官方名称。请按照提供的示例中的输出字段格式，以单个JSONArray字符串形式回复，无需任何解释。",
     "example": {
-        "input": "烦躁不安、语妄、失眠酌用镇静药，禁用抑制呼吸的镇静药。\n3.并发症的处理经抗菌药物治疗后，高热常在24小时内消退，或数日内逐渐下降。\n若体温降而复升或3天后仍不降者，应考虑SP的肺外感染，如腋胸、心包炎或关节炎等。治疗：接胸腔压力调节管＋吸引机负压吸引水瓶装置闭式负压吸引宜连续，如经12小时后肺仍未复张，应查找原因。",
+        "input": "metal oxide TFT technology has attracted considerable attention because of its high mobility, low temperature capability, good transparency to visible light, and relatively low fabrication cost. The high fabrication cost of poly-Si TFTs can be alleviated by replacing them with metal oxide TFTs because oxide TFTs can be fabricated without intentional crystallization and doping processes. For this reason, metal oxide TFTs have been studied intensively as an alternative to a-Si TFTs for use in advanced AM displays. Nomura et al. explored a new class of amorphous oxide semiconductors based on InGaZnO (IGZO) and reported that high performance transistors (u ~ 8.3 cm2 /Vs) can be fabricated using IGZO thin films deposited at low temperatures, even at room temperature.",
         "named_entities": [
-            {"entity": "烦躁不安", "category": "Symptom"},
-            {"entity": "语妄", "category": "Symptom"},
-            {"entity": "失眠", "category": "Symptom"},
-            {"entity": "镇静药", "category": "Medicine"},
-            {"entity": "肺外感染", "category": "Disease"},
-            {"entity": "胸腔压力调节管", "category": "MedicalEquipment"},
-            {"entity": "吸引机负压吸引水瓶装置", "category": "MedicalEquipment"},
-            {"entity": "闭式负压吸引", "category": "SurgicalOperation"}
-        ],
-        "output": [
-            {"entity": "烦躁不安", "category": "Symptom", "official_name": "焦虑不安"},
-            {"entity": "语妄", "category": "Symptom", "official_name": "谵妄"},
-            {"entity": "失眠", "category": "Symptom", "official_name": "失眠症"},
-            {"entity": "镇静药", "category": "Medicine", "official_name": "镇静剂"},
-            {"entity": "肺外感染", "category": "Disease", "official_name": "肺外感染"},
-            {"entity": "胸腔压力调节管", "category": "MedicalEquipment", "official_name": "胸腔引流管"},
-            {"entity": "吸引机负压吸引水瓶装置", "category": "MedicalEquipment", "official_name": "负压吸引装置"},
-            {"entity": "闭式负压吸引", "category": "SurgicalOperation", "official_name": "闭式负压引流"}
-        ]
-    },
-    "input": $input,
-    "named_entities": $named_entities,
+            {"entity": "metal oxide TFT", "category": "Device"},
+            {"entity": "mobility", "category": "Parameter"},
+            {"entity": "temperature", "category": "Parameter"},
+            {"entity": "transparency", "category": "Parameter"},
+            {"entity": "visible light", "category": "Terminology"},
+            {"entity": "poly-Si TFTs", "category": "Device"},
+            {"entity": "crystallization", "category": "Process"},
+​           {"entity": "doping ", "category": "Process"},
+​           {"entity": "a-Si TFTs ", "category": "Device"},
+​           {"entity": "AM displays ", "category": "Device"},
+​           {"entity": "Nomura ", "category": "Researcher"},
+​           {"entity": "amorphous oxide semiconductors ", "category": "Material"},
+​           {"entity": "InGaZnO ", "category": "Material"},
+​           {"entity": "IGZO ", "category": "Material"},
+​           {"entity": "transistors ", "category": "Device"},
+​           {"entity": "cm2 /Vs", "category": "Unit"},
+​           {"entity": "IGZO thin films ", "category": "Material"},
+​           {"entity": "room temperature ", "category": "Terminology"}
+​        ],
+​        "output": [
+​            {"entity": "metal oxide TFT", "category": "Device", "official_name": "metal oxide Thin Film Transistor"},
+​            {"entity": "mobility", "category": "Parameter", "official_name": "mobility"},
+​            {"entity": "temperature", "category": "Parameter", "official_name": "temperature"},
+​            {"entity": "transparency", "category": "Parameter", "official_name": "transparency"},
+​            {"entity": "visible light", "category": "Terminology", "official_name": "visible light"},
+​            {"entity": "poly-Si TFTs", "category": "Device", "official_name": "Poly silicon Thin Film Transistors"},
+​            {"entity": "crystallization", "category": "Process", "official_name": "crystallization"},
+             {"entity": "doping", "category": "Process", "official_name": "doping"},
+​            {"entity": "a-Si TFTs", "category": "Device", "official_name": "Amorphous silicon Thin Film Transistor"},
+​            {"entity": "AM displays", "category": "Device", "official_name": "Active-Matrix Displays"},
+​            {"entity": "Nomura", "category": "Researcher", "official_name": "Nomura"},
+​            {"entity": "amorphous oxide semiconductors", "category": "Material", "official_name": "amorphous oxide semiconductors"},
+             {"entity": "InGaZnO", "category": "Material", "official_name": "Indium Zinc Gallium Oxide"},
+             {"entity": "IGZO", "category": "Material", "official_name": "Indium Zinc Gallium Oxide"},
+​            {"entity": "transistors", "category": "Device", "official_name": "transistors"},
+​            {"entity": "cm2 /Vs", "category": "Unit", "official_name": "Active-Matrix Displays"},
+​            {"entity": "IGZO thin films", "category": "Material", "official_name": "Indium Zinc Gallium Oxide thin film"},
+​            {"entity": "room temperature", "category": "Terminology", "official_name": "room temperature"}
+​        ]
+​    },
+​    "input": $input,
+​    "named_entities": $named_entities,
 }    
     """
 

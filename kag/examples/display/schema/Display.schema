@@ -1,134 +1,108 @@
-namespace Medicine
+namespace Display
 
 Chunk(文本块): EntityType
      properties:
         content(内容): Text
           index: TextAndVector
 
-HealthFood(保健食品): EntityType
+Material(材料): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-DiseaseCategory(疾病类目): EntityType
+
+Equipment(设备): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-ExaminationTest(检查检验): EntityType
+
+Process(制程工艺): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-HospitalDepartment(科室): ConceptType
-     hypernymPredicate: isA
-Population(人群): EntityType
+
+Parameter(参数): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-HumanBodyPart(人体部位): ConceptType
-     hypernymPredicate: isA
-SurgicalOperation(手术操作): EntityType
+
+Device(器件): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-SpecialMedicalFood(特医食品): EntityType
+
+Terminology(术语): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-Medicine(药品): EntityType
+
+Mechanism(机理): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-MedicalInsuranceReimbursementPolicy(医保报销政策): EntityType
+
+Issue(问题): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-MedicalEquipment(医疗器械): EntityType
+
+Test(测试): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-Doctor(医生): EntityType
+
+Design(设计): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-Hospital(医院): EntityType
+
+Company(公司): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-Vaccine(疫苗): EntityType
+
+Researcher(研究者): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-MedicalAdvice(诊疗建议): EntityType
+
+Countermeasure(对策): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-Symptom(症状): EntityType
+
+Unit(物理单位): EntityType
      properties:
         desc(描述): Text
             index: Text
         semanticType(语义类型): Text
             index: Text
-ComprehensiveService(综合服务): EntityType
-     properties:
-        desc(描述): Text
-            index: Text
-        semanticType(语义类型): Text
-            index: Text
-MedicalTerminology(医学术语): EntityType
-     properties:
-        desc(描述): Text
-            index: Text
-        semanticType(语义类型): Text
-            index: Text
-Indicator(医学指征): EntityType
-    properties:
-        desc(描述): Text
-            index: Text
-        semanticType(语义类型): Text
-            index: Text
-Disease(疾病): EntityType
-     properties:
-        desc(描述): Text
-            index: Text
-        semanticType(语义类型): Text
-            index: Text
-        complication(并发症): Disease
-            constraint: MultiValue
-        commonSymptom(常见症状): Symptom
-            constraint: MultiValue
-        applicableMedicine(适用药品): Medicine
-            constraint: MultiValue
-        hospitalDepartment(就诊科室): HospitalDepartment
-            constraint: MultiValue
-        diseaseSite(发病部位): HumanBodyPart
-            constraint: MultiValue
-     relations:
-        abnormal(异常指征): Indicator
+
 Others(其他): EntityType
      properties:
         desc(描述): Text

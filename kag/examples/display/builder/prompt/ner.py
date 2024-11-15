@@ -26,16 +26,27 @@ class OpenIENERPrompt(PromptOp):
         "schema": $schema,
         "example": [
             {
-                "input": "烦躁不安、语妄、失眠酌用镇静药，禁用抑制呼吸的镇静药。\n3.并发症的处理经抗菌药物治疗后，高热常在24小时内消退，或数日内逐渐下降。\n若体温降而复升或3天后仍不降者，应考虑SP的肺外感染。\n治疗：接胸腔压力调节管＋吸引机负压吸引水瓶装置闭式负压吸引宜连续，如经12小时后肺仍未复张，应查找原因。",
+                "input": "metal oxide TFT technology has attracted considerable attention because of its high mobility, low temperature capability, good transparency to visible light, and relatively low fabrication cost. The high fabrication cost of poly-Si TFTs can be alleviated by replacing them with metal oxide TFTs because oxide TFTs can be fabricated without intentional crystallization and doping processes. For this reason, metal oxide TFTs have been studied intensively as an alternative to a-Si TFTs for use in advanced AM displays. Nomura et al. explored a new class of amorphous oxide semiconductors based on InGaZnO (IGZO) and reported that high performance transistors (u ~ 8.3 cm2 /Vs) can be fabricated using IGZO thin films deposited at low temperatures, even at room temperature.",
                 "output": [
-                        {"entity": "烦躁不安", "category": "Symptom"},
-                        {"entity": "语妄", "category": "Symptom"},
-                        {"entity": "失眠", "category": "Symptom"},
-                        {"entity": "镇静药", "category": "Medicine"},
-                        {"entity": "肺外感染", "category": "Disease"},
-                        {"entity": "胸腔压力调节管", "category": "MedicalEquipment"},
-                        {"entity": "吸引机负压吸引水瓶装置", "category": "MedicalEquipment"},
-                        {"entity": "闭式负压吸引", "category": "SurgicalOperation"}
+                        {"entity": "metal oxide TFT", "category": "Device"},
+                        {"entity": "mobility", "category": "Parameter"},
+                        {"entity": "temperature", "category": "Parameter"},
+                        {"entity": "transparency", "category": "Parameter"},
+                        {"entity": "visible light", "category": "Terminology"},
+                        {"entity": "fabrication cost", "category": "Finance"},
+                        {"entity": "poly-Si TFTs", "category": "Device"},
+                        {"entity": "crystallization", "category": "Process"}
+            ​           {"entity": "doping ", "category": "Process"},
+            ​           {"entity": "a-Si TFTs ", "category": "Device"},
+            ​           {"entity": "AM displays ", "category": "Device"},
+            ​           {"entity": "Nomura ", "category": "Researcher"},
+            ​           {"entity": "amorphous oxide semiconductors ", "category": "Material"},
+            ​           {"entity": "InGaZnO ", "category": "Material"},
+            ​           {"entity": "IGZO ", "category": "Material"},
+            ​           {"entity": "transistors ", "category": "Device"},
+            ​           {"entity": "cm2 /Vs", "category": "Unit"},
+            ​           {"entity": "IGZO thin films ", "category": "Material"},
+            ​           {"entity": "room temperature ", "category": "Terminology"}
                     ]
             }
         ],
