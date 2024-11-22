@@ -13,3 +13,5 @@
 /dist
 .vscode/
 __pycache__/
+/kag/examples/display/builder/data/
+/kag/examples/display_sub/builder/data/

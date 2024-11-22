@@ -73,7 +73,7 @@ def buildKB(corpusFilePath):
 
 if __name__ == '__main__':
     filePath = "./data/2wiki_sub_corpus.json"
-    # filePath = "./data/2wiki_corpus.json"
+    filePath = "./data/2wiki_corpus.json"
     corpusFilePath = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), filePath
     )

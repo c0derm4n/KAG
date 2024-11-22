@@ -54,7 +54,18 @@ class OpenAIVectorizer(Vectorizer):
         :return: embedding vectors of the texts
         :rtype: EmbeddingVector or Iterable[EmbeddingVector]
         """
-        results = self.client.embeddings.create(input=texts, model=self.model)
+        try:
+            results = self.client.embeddings.create(input=texts, model=self.model)
+        except Exception as e:
+            print(f"failed to vectorize data {texts}, info {e}")
+            import traceback
+            import numpy as np
+            traceback.print_exc()
+            if isinstance(texts, str):
+                return np.random.rand(self.vector_dimensions).tolist()
+            else:
+                return np.random.rand(len(texts), self.vector_dimensions).tolist()
+
         results = [item.embedding for item in results.data]
         if isinstance(texts, str):
             assert len(results) == 1

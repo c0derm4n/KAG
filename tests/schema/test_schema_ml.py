@@ -2,7 +2,7 @@ from knext.schema.marklang.schema_ml import SPGSchemaMarkLang
 
 
 def test_load_schema():
-    schema_file = "../../kag/examples/medicine/schema/Medicine.schema"
+    schema_file = "../../kag/examples/medicine/schema/DisplaySub.schema"
     ml = SPGSchemaMarkLang(schema_file, with_server=False)
     for _,m in ml.types.items():
         for r in m.relations.values():

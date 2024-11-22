@@ -114,7 +114,7 @@ if __name__ == "__main__":
     evalObj = EvaFor2wiki(configFilePath=configFilePath)
 
     filePath = "./data/2wiki_qa_sub.json"
-    # filePath = "./data/2wiki_qa.json"
+    filePath = "./data/2wiki_qa.json"
     qaFilePath = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), filePath
     )

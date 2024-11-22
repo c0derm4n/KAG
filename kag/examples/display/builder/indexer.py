@@ -91,8 +91,8 @@ def buildKB(corpusFilePath):
 
 
 if __name__ == '__main__':
-    filePath = "./data/display_corpus.json"  # en
-    filePath = "./data/display_sub_corpus.json" # test
+    filePath = "./data/display_corpus_last_half.json"  # en
+    filePath = "./data/display_corpus_only_zh.json" # zh
     corpusFilePath = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), filePath
     )
