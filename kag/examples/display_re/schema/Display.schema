@@ -1,0 +1,111 @@
+namespace Display
+
+Chunk(文本块): EntityType
+     properties:
+        content(内容): Text
+          index: TextAndVector
+
+Material(材料): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Equipment(设备): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Process(制程工艺): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Parameter(参数): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Device(器件): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Terminology(术语): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Mechanism(机理): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Issue(问题): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Test(测试): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Design(设计): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Company(公司): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Researcher(研究者): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Countermeasure(对策): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Unit(物理单位): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+
+Others(其他): EntityType
+     properties:
+        desc(描述): Text
+            index: TextAndVector
+        semanticType(语义类型): Text
+            index: Text

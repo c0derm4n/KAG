@@ -1,0 +1,133 @@
+namespace Display
+
+Chunk(文本块): EntityType
+     properties:
+        content(内容): Text
+          index: TextAndVector
+
+Material(材料): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        application(应用):Text
+        affects(影响):Text
+Equipment(设备): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        type(类型):Text
+        function(功能):Text
+Process(制程工艺): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        steps(步骤):Text
+        conditions(条件):Text
+        equipment(设备):Equipment
+        affects(影响):Text
+Parameter(参数): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        unit(单位):Unit
+        value(数值):Text
+        impact(影响):Text
+Device(器件): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        classification(分类):Text
+        material(材料):Material
+        process(制程工艺):Process
+        structure(结构):Text
+        parameters(参数):Parameter
+            constraint: MultiValue
+Terminology(术语): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        relatedTerms(相关术语): Terminology
+Mechanism(机理): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        relatedDevice(相关器件): Device
+        relatedProcess(相关工艺): Process
+        relatedIssue(相关问题):Issue
+Issue(问题): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        relatedDevice(相关器件): Device
+        relatedProcess(相关工艺): Process
+        countermeasure(对策): Countermeasure
+Test(测试): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        type(类型): Text
+        equipment(设备): Equipment
+        parameters(参数): Parameter
+        purpose(目的): Text
+Design(设计): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        relatedDevice(相关器件): Device
+        relatedProcess(相关工艺): Process
+Company(公司): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        researchers(研究者): Researcher
+Researcher(研究者): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        affiliation(所属机构): Company
+Countermeasure(对策): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        type(类型): Text
+        relatedIssue(相关问题): Issue
+        effectiveness(有效性): Text
+Unit(单位): EntityType
+     properties:
+        desc(描述): Text
+            index: Text
+        semanticType(语义类型): Text
+            index: Text
+        symbol(符号): Text
+Others(其他): EntityType
+     properties:
+        desc(描述): Text
+            index: TextAndVector
+        semanticType(语义类型): Text
+            index: Text
