@@ -132,28 +132,45 @@ class KAGExtractor(ExtractorABC):
             properties = record.get("properties", {})
             tmp_properties = copy.deepcopy(properties)
             spg_type = self.schema.get(s_label)
+            if not spg_type:
+                continue
             for prop_name, prop_value in properties.items():
                 if prop_value == "NAN":
                     tmp_properties.pop(prop_name)
                     continue
-                if prop_name in spg_type.properties:
-                    from knext.schema.model.property import Property
-
-                    prop: Property = spg_type.properties.get(prop_name)
-                    o_label = prop.object_type_name_en
-                    if o_label not in BASIC_TYPES:
-                        if isinstance(prop_value, str):
-                            prop_value = [prop_value]
-                        for o_name in prop_value:
-                            sub_graph.add_node(id=o_name, name=o_name, label=o_label)
-                            sub_graph.add_edge(
-                                s_id=s_name,
-                                s_label=s_label,
-                                p=prop_name,
-                                o_id=o_name,
-                                o_label=o_label,
-                            )
-                        tmp_properties.pop(prop_name)
+                try:
+                    if prop_name in spg_type.properties:
+                        from knext.schema.model.property import Property
+                        prop: Property = spg_type.properties.get(prop_name)
+                        o_label = prop.object_type_name_en
+                        if o_label not in BASIC_TYPES:
+                            if isinstance(prop_value, str):
+                                prop_value = [prop_value]
+                            for o_name in prop_value:
+                                sub_graph.add_node(id=o_name, name=o_name, label=o_label)
+                                sub_graph.add_edge(
+                                    s_id=s_name,
+                                    s_label=s_label,
+                                    p=prop_name,
+                                    o_id=o_name,
+                                    o_label=o_label,
+                                )
+                            tmp_properties.pop(prop_name)
+                except Exception as e:
+                    print('-----debug-------')
+                    print("schema:",self.schema.keys())
+                    print("spg_type:", spg_type)
+                    print("s_label:", s_label)
+                    print("record:", record)
+                    print('----------------')
+                    with open('kag_extractor_debug_log.txt',mode='a',encoding='utf-8') as obj:
+                        obj.write('-----debug-------\n')
+                        obj.write("schema:{}\n".format(self.schema.keys()))
+                        obj.write("spg_type:{}\n".format(spg_type))
+                        obj.write("s_label:{}\n".format(s_label))
+                        obj.write("record:{}\n".format( record))
+                        obj.write('----------------\n')
+                    raise e
             record["properties"] = tmp_properties
             sub_graph.add_node(
                 id=s_name, name=s_name, label=s_label, properties=properties

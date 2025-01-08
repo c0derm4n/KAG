@@ -63,7 +63,13 @@ class KGWriter(SinkWriterABC):
         Returns:
             List[Output]: A list of output objects (currently always [None]).
         """
-        self.client.write_graph(sub_graph=input.to_dict(), operation=alter_operation, lead_to_builder=lead_to_builder)
+        try:
+            self.client.write_graph(sub_graph=input.to_dict(), operation=alter_operation, lead_to_builder=lead_to_builder)
+        except Exception as e:
+            import json
+            with open('kg_writer_debug.json', 'w', encoding='utf-8') as json_file:
+                json.dump([input.to_dict()], json_file, ensure_ascii=False, indent=4)
+            return [None]
         return [None]
 
     def _handle(self, input: Dict, alter_operation: str, **kwargs):

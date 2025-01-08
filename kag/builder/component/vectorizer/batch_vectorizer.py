@@ -77,12 +77,22 @@ class EmbeddingVectorManager(object):
             text_batch[property_value].append(placeholder)
         return text_batch
 
-    def _generate_vectors(self, vectorizer, text_batch):
+    def _generate_vectors(self, vectorizer, text_batch, batch_size=32):
+        if isinstance(text_batch, str):
+            text_batch = [text_batch]
         texts = list(text_batch)
         if not texts:
             return []
-        vectors = vectorizer.vectorize(texts)
-        return vectors
+        if len(texts) % batch_size == 0:
+            n_batchs = len(texts) // batch_size
+        else:
+            n_batchs = len(texts) // batch_size + 1
+        embeddings = []
+        for idx in range(n_batchs):
+            start = idx * batch_size
+            end = min(start + batch_size, len(texts))
+            embeddings.extend(vectorizer.vectorize(texts[start:end]))
+        return embeddings
 
     def _fill_vectors(self, vectors, text_batch):
         for vector, (_text, placeholders) in zip(vectors, text_batch.items()):
@@ -163,8 +173,13 @@ class BatchVectorizer(VectorizerABC):
         spg_types = schema_client.load()
         for type_name, spg_type in spg_types.items():
             for prop_name, prop in spg_type.properties.items():
-                if prop_name == "name" or prop.index_type in [IndexTypeEnum.Vector, IndexTypeEnum.TextAndVector]:
-                    vec_meta[type_name].append(self._create_vector_field_name(prop_name))
+                if prop_name == "name" or prop.index_type in [
+                    IndexTypeEnum.Vector,
+                    IndexTypeEnum.TextAndVector,
+                ]:
+                    vec_meta[type_name].append(
+                        self._create_vector_field_name(prop_name)
+                    )
         return vec_meta
 
     def _create_vector_field_name(self, property_key):
@@ -179,6 +194,9 @@ class BatchVectorizer(VectorizerABC):
         node_batch = []
         for node in input.nodes:
             if not node.id or not node.name:
+                continue
+            # 针对Processing BatchVectorizer阶段报错 “property name must be string”
+            if not isinstance(node.name, str):
                 continue
             properties = {"id": node.id, "name": node.name}
             properties.update(node.properties)

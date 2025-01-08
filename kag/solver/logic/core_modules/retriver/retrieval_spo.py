@@ -212,17 +212,27 @@ class FuzzyMatchRetrievalSpo(RetrievalSpoBase):
         if len(intersection) == 0:
             res = ''
             try:
+                print("---------------------")
+                print("p_mention:", p_mention)
+                print("p_candis:", p_candis)
+                print("query:", query)
                 res = self._choosed_by_llm(query, p_mention, p_candis)
                 res = res.replace("Output:", "output:")
+                print("after choosed_by_llm , res: ",res, '<END>')
+                print("---------------------")
                 if "output:" in res:
                     res = re.search('output:(.*)', res).group(1).strip()
-                if res != '':
+                if res != '' and '{' in res:
                     res = json.loads(res.replace("'", '"'))
                     for res_ in res:
                         self.cached_map[p_mention] = self.cached_map.get(p_mention, []) + [res_]
                         intersection.append(res_)
-            except:
-                logger.warning(f"retrieval_spo json failed：query={query},  res={res}")
+            except Exception as e:
+                logger.warning(f"retrieval_spo json failed：query={query}, intersection={intersection},  res={res} <end>")
+                print(e)
+        print("---------------------")
+        print("最终的intersection：",intersection, '<end>')
+        print("---------------------")
         return [[x, 1.0] for x in intersection]
 
     def find_best_match_p_name_by_model(self, query: str, p: str, candi_set: dict):
