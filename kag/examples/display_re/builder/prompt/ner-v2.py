@@ -60,9 +60,9 @@ class OpenIENERPrompt(PromptOp):
                         {"entity": "SiO2-gated TFT", "category": "Device"},
                         {"entity": "charge trapping mechanism", "category": "Mechanism"},
                         {"entity": "light illumination under a negative bias stress", "category": "Process"},
-                        {"entity": "negative displacement of the threshold voltage (Vth)", "category": "Issue"},
+                        {"entity": "negative displacement of the threshold voltage (Vth)", "category": "Issue"}
                         {"entity": "injection of photocreated hole carriers into the underlying gate dielectric bulk region", "category": "Mechanism"},
-                        {"entity": "hole trapping at the gate/channel interface", "category": "Mechanism"},
+                        {"entity": " hole trapping at the gate/channel interface", "category": "Mechanism"},
                         {"entity": "bias stability", "category": "Parameter"},
                         {"entity": "light-induced bias stability", "category": "Parameter"},
                         {"entity": "SiO2-gated IGZO TFTs can be implemented as backplane electronics ", "category": "Countermeasure"}
@@ -80,7 +80,7 @@ class OpenIENERPrompt(PromptOp):
                         {"entity": "wet etching", "category": "Process"},
                         {"entity": "glass", "category": "Material"},
                         {"entity": "120 nm thick layer SiO2", "category": "Material"},
-                        {"entity": "gate insulator (GI) ", "category": "Terminology"},
+                        {"entity": "gate insulator (GI) ", "category": "Terminology"}
                         {"entity": "plasma enhanced chemical vapor deposition (PECVD)", "category": "Process"},
                         {"entity": "300°C", "category": "Parameter"},
                         {"entity": "ratio of SiH4 and N2O during SiO2 growth", "category": "Parameter"},
@@ -125,7 +125,7 @@ class OpenIENERPrompt(PromptOp):
                             {"entity": "AMOLED 显示屏 ", "category": "Device"},
                             {"entity": "栅极", "category": "Terminology"},
                             {"entity": "Al 薄膜", "category": "Material"},
-                            {"entity": "cm2 /Vs", "category": "Unit"},
+                            {"entity": "cm2 /Vs", "category": "Unit"}
                             {"entity": "小丘", "category": "Terminology"},
                             {"entity": "Al-Nd", "category": "Material"},
                             {"entity": "Al-Ce 合金", "category": "Material"},

@@ -55,11 +55,11 @@ if __name__ == "__main__":
 
     file_path = '/data/dmy/KAG/kag/examples/微软问题&目标切片-0826-kag测试结果-v7.xlsx'
     data = pd.read_excel(file_path, sheet_name='Query&目标切片')
-    new_col_names = 'V8-3'  # 需要指定版本 !!!!!!!!!!
+    new_col_names = 'V5-new-spo-v5-all'  # 需要指定版本 !!!!!!!!!!
     log_list = []
     for index, row in data.iterrows():
-        if index >= 17:
-            continue
+        # if index >= 17:
+        #     continue
         query = row['Query']
         print(index, query)
         print("===================")

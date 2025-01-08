@@ -33,28 +33,55 @@ class LogicFormPlanPrompt(PromptOp):
       },
       {
           "functionName": "get",
-          "function_decl:aration": "get(alias)",
+          "function_declaration": "get(alias)",
           "description": "返回指定的别名代表的信息，可以是实体、关系路径或get_spo中获取到的属性值；可作为最后的输出结果"
       }
     ],
     """
-    default_case_zh = """"cases": [
-        {
-            "Action": "除了短沟道效应影响外，为什么在顶栅IGZO TFT中，随着沟道长度L的变小，TFT的阈值电压会变负？",
-            "answer": "Step1:获取顶栅IGZO TFT的阈值电压与沟道长度L的关系\nAction1:get_spo(s=s1:器件[type:顶栅IGZO TFT], p=p1:具有属性, o=o1:属性[阈值电压])\nStep2:获取顶栅IGZO TFT的沟道长度L与阈值电压的关系\nAction2:get_spo(s=s1:器件[type:顶栅IGZO TFT], p=p2:具有属性, o=o2:属性[沟道长度L])\nStep3:分析阈值电压如何随着沟道长度L的变小而变化\nAction3:sort(set=o1, orderby=o2, direction=min, limit=10)\nStep4:输出阈值电压随沟道长度L变化的趋势\nAction4:get(o1)"
-        }
-    ],"""
-    default_case_zh = """"cases": [
+    default_case_zh1 = """"cases": [
+            {
+                "Action": "A溃坝事件对那些公司产生了影响",
+                "answer": "Step1:查询A溃坝事件引起的公司事件\nAction1:get_spo(s=s1:产业链事件[A溃坝事件], p=p1:导致, o=o1:公司事件)\nOutput:输出o1\nAction2:get(o1)"
+            }
+        ],"""
+    default_case_zh2 = """"cases": [
             {
                 "Action": "张*三是一个赌博App的开发者吗?",
                 "answer": "Step1:查询是否张*三的分类\nAction1:get_spo(s=s1:自然人[张*三], p=p1:属于, o=o1:风险用户)\nOutput:输出o1\nAction2:get(o1)"
             }
         ],"""
-
+    default_case_zh3 = """"cases": [
+            {
+                "query": "中华人民共和国铁路法第二十八条的内容是什么",
+                "answer": "Step1:中华人民共和国铁路法第二十八条的内容是什么 ?\nAction1:get_spo(s=s1:Chunk[中华人民共和国铁路法第二十八条], p=p1:content, o=o1:Text)\n Action2: get(o1)"
+            }
+        ],"""
+    default_case_zh4 = """"cases": [
+            {
+                "Action": "吴京是谁",
+                "answer": "Step1:查询吴京\nAction1:get_spo(s=s1:公众人物[吴京], p=p1, o=o1)\nOutput:输出s1\nAction2:get(s1)"
+            },
+            {
+                "query": "30+6加上华为创始人在2024年的年龄是多少",
+                "answer": "Step1:30+6 等于多少？\nAction1:sum(30,6)->sum1\nStep2:华为创始人是谁？\nAction2:get_spo(s=s2:企业[华为],p=p2:创始人,o=o2)\nStep3:华为创始人出生在什么年份？\nAction3:get_spo(s=o2,p=p3:出生年份,o=o3)\nStep4:华为创始人在2024年的年龄是多少？\nAction4:sum(2024,-o3)->sum4\nStep5:30+6的结果与华为创始人在2024年的年龄相加是多少？\nAction5:sum(sum1,sum4)->sum5\nStep6:输出sum5\nAction6:get(sum5)"
+            }
+        ],"""
+    default_case_zh = """"cases": [
+            {
+                "query": "除了短沟道效应影响外，为什么在顶栅IGZO TFT中，随着沟道长度L的变小，TFT的阈值电压会变负？",
+                "answer": "Step1: 查询顶栅IGZO TFT的阈值电压与沟道长度L的关系\nAction1: get_spo(s=s1:半导体器件[顶栅IGZO TFT], p=p1:阈值电压, o=o1:电压值)\nStep2: 查询沟道长度L对阈值电压的影响\nAction2: get_spo(s=s1, p=p2:沟道长度, o=o2:L值)\nStep3: 分析除了短沟道效应外的其他因素\nAction3: get_spo(s=s1, p=p3:其他影响因素, o=o3)\nStep4: 输出分析结果\nAction4: Output(o1, o2, o3)"
+            }
+    ],"""
+    hy_case_zh_v1 = """"cases": [
+                    {
+                        "query": "为什么以底栅结构的器件为元件的电路响应速度较慢？",
+                        "answer": "Step1: 识别底栅结构器件类型及其特点\nAction1: get_spo(s=s1:Device, p=p1:HasCharacteristic, o=o1:Property)\nStep2: 查找底栅结构与响应速度的关系\nAction2: get_spo(s=o1, p=p2:RelatedTo, o=o2:ResponseSpeed)\nStep3: 解释为何底栅结构影响响应速度\nAction3: get_spo(s=o2, p=p3:InfluencedBy, o=o3:Factor)"
+                    }
+            ],"""
     template_zh = f"""
 {{
     {instruct_zh}
-    {default_case_zh}
+    {hy_case_zh_v1}
     "output_format": "only output `Step`, `Action` and `Output` content",
     "query": "$question"
 }}   
@@ -88,15 +115,43 @@ class LogicFormPlanPrompt(PromptOp):
       },
       {
           "functionName": "get",
-          "function_decl:aration": "get(alias)",
+          "function_declaration": "get(alias)",
           "description": "Return the information represented by a specified alias. This can be an entity, a relationship path, or an attribute value obtained in the get_spo query. It can be used as the final output result."
       }
     ],"""
     default_case_en = """"""
+    hy_case_en_v1 = """"cases": [
+                        {
+                            "query": "顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？",
+                            "answer": "Step1:What is the parasitic capacitance of top-gate structure IGZO?\nAction1:get_spo(s=s1:IGZO, p=p1:ParasiticCapacitance, o=o1:Value, p2:TopGateStructure)\nStep2:What is the parasitic capacitance of bottom-gate structure IGZO?\nAction2:get_spo(s=s2:IGZO, p=p2:ParasiticCapacitance, o=o2:Value, p3:BottomGateStructure)\nStep3:Why is the parasitic capacitance lower for top-gate structure compared to bottom-gate structure?\nAction3:get_spo(s=s1, p=p3:Reason, o=o3:Explanation)"
+                        },
+                        {
+                            "query": "为什么si的非晶态迁移率较低，而氧化物的非晶态迁移率较高？",
+                            "answer": "Step1: Define the properties of amorphous Si and its mobility\nAction1: get_spo(s=s1:Material[Amorphous Si], p=p1:Mobility, o=o1:Value)\nStep2: Define the properties of amorphous oxides and their mobility\nAction2: get_spo(s=s2:Material[Amorphous Oxides], p=p2:Mobility, o=o2:Value)\nStep3: Compare the mobility values of amorphous Si and oxides\nAction3: compare(set=[o1, o2], op=min)"
+                        }
+                ],"""
+    dmy_case_en_v4 = """"cases": [
+                {
+                    "query": "顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？",
+                    "answer": "Step1:What is the parasitic capacitance of top-gate structure IGZO?\nAction1:get_spo(s=s1:IGZO, p=p1:ParasiticCapacitance, o=o1:Value, p2:TopGateStructure)\nStep2:What is the parasitic capacitance of bottom-gate structure IGZO?\nAction2:get_spo(s=s2:IGZO, p=p2:ParasiticCapacitance, o=o2:Value, p3:BottomGateStructure)\nStep3:Why is the parasitic capacitance lower for top-gate structure compared to bottom-gate structure?\nAction3:get_spo(s=s1, p=p3:Reason, o=o3:Explanation)"
+                },
+                {
+                    "query": "为什么si的非晶态迁移率较低，而氧化物的非晶态迁移率较高？",  
+                    "answer": "Step1: Define the properties of amorphous Si and its mobility\nAction1: get_spo(s=s1:Material[Amorphous Si], p=p1:Mobility, o=o1:Value)\nStep2: Define the properties of amorphous oxides and their mobility\nAction2: get_spo(s=s2:Material[Amorphous Oxides], p=p2:Mobility, o=o2:Value)\nStep3: Compare the mobility values of amorphous Si and oxides\nAction3: compare(set=[o1, o2], op=min)"
+                },
+                {
+                    "query": "为什么以底栅结构的器件为元件的电路响应速度较慢？",
+                    "answer": "Step1: What are the factors that cause circuit slow response speed?\nAction1:get_spo(s=s1:Equipment[Circuit], p=p1:SlowResponseFactors, o=o1)\nStep2: What are the properties of bottom-gate structure device?\nAction2:get_spo(s=s2:Device[Bottom-Gate Device], p=p2:Property, o=o2)\nStep3: What is the specific reasons for the bottom-gate structure device affecting circuit response speed?\nAction3:get_spo(s=o2, p=p2:ReasonAffectingResponseSpeed, o=o2)"
+                 },
+                 {
+                    "query": "氧化物薄膜晶体管TFT 相比于非晶硅TFT和LTPS TFT的优势是什么？",
+                    "answer": "Step1: Identify the properties of metal oxide thin film Transistor\nAction1:get_spo(s=s1:Device[Metal Oxide TFT], p=p1:Property, o=o1)\nStep2: Identify the properties of amorphous silicon thin film Transistor\nAction2:get_spo(s=s2:Device[Amorphous Silicon TFT], p=p2:Property, o=o2)\nStep3: Identify the properties of LTPS thin film Transistor\nAction3:get_spo(s=s3:Device[LTPS TFT], p=p3:Property, o=o3)\nStep4: What are the advantage of the properties of metal oxide thin film Transistor over the properties of amorphous silicon thin film Transistor and the properties of LTPS thin film Transistor\nAction4:compare(set=[o1, o2, o3], op=max)"
+                 }
+            ],"""
     template_en = f"""
 {{
     {instruct_en}
-    {default_case_en}
+    {dmy_case_en_v4 }
     "output_format": "Only output words in answer, for examples: `Step`, `Action` content",
     "query": "$question"
 }}   

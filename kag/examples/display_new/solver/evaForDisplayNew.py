@@ -35,30 +35,18 @@ class DisplayDemo:
 
 
 if __name__ == "__main__":
-#     demo = DisplayDemo()
-#     query = """问题：在改进柔性AMOLED显示面板中a-IGZO薄膜晶体管（TFT）可靠性的研究中，哪种材料被用于阻挡氢的扩散以改善电气性能？
-#
-# A) 氧化铝（Al2O3）
-#
-# B) 氮化硅（Si3N4）
-#
-# C) 金属氧化物（MOX）
-#
-# D) 聚酰亚胺（PI）
-#
-# 上面是一道单选题，请给出正确选项。"""
-#     answer, trace_log = demo.qa(query)
-#     print(f"Question: {query}")
-#     print(f"Answer: {answer}")
-#     print(f"TraceLog: {trace_log}")
+    # demo = DisplayDemo()
+    # query = """顶栅IGZO TFT在驱动显示屏时可能会经历长时间的偏压stress，请问如何改善顶栅IGZO的PBTS/PBS，它们的机理是什么?"""
+    # answer, trace_log = demo.qa(query)
+    # print(f"Question: {query}")
+    # print(f"Answer: {answer}")
+    # #print(f"TraceLog: {trace_log}")
 
     file_path = '/data/dmy/KAG/kag/examples/微软问题&目标切片-0826-kag测试结果-v7.xlsx'
     data = pd.read_excel(file_path, sheet_name='Query&目标切片')
-    new_col_names = 'V9_wo_spo'  # 需要指定版本 !!!!!!!!!!
+    new_col_names = 'v11-spo-v4-all'  # 需要指定版本 !!!!!!!!!!
     log_list = []
     for index, row in data.iterrows():
-        if index >= 17:
-            continue
         query = row['Query']
         print(index, query)
         print("===================")

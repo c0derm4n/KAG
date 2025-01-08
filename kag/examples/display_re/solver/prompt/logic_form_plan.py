@@ -33,7 +33,7 @@ class LogicFormPlanPrompt(PromptOp):
       },
       {
           "functionName": "get",
-          "function_decl:aration": "get(alias)",
+          "function_declaration": "get(alias)",
           "description": "返回指定的别名代表的信息，可以是实体、关系路径或get_spo中获取到的属性值；可作为最后的输出结果"
       }
     ],
@@ -115,11 +115,28 @@ class LogicFormPlanPrompt(PromptOp):
       },
       {
           "functionName": "get",
-          "function_decl:aration": "get(alias)",
+          "function_declaration": "get(alias)",
           "description": "Return the information represented by a specified alias. This can be an entity, a relationship path, or an attribute value obtained in the get_spo query. It can be used as the final output result."
       }
     ],"""
-    default_case_en = """"""
+    default_case_en = """"cases": [
+        {
+            "query": "Which sports team for which Cristiano Ronaldo played in 2011 was founded last ?",
+            "answer": "Step1:Which Sports Teams Cristiano Ronaldo Played for in 2011 ?\nAction1:get_spo(s=s1:Player[Cristiano Ronaldo],p=p1:PlayedForIn2011Year,o=o1:SportsTeam)\nStep2:In which year were these teams established ?\nAction2:get_spo(s=o1,p=p2:FoundationYear,o=o2:Year)\nStep3:Which team was founded last ?\nAction3:sort(set=o1, orderby=o2, direction=max, limit=1)"
+        },
+        {
+            "query": "Who was the first president of the association which published Journal of Psychotherapy Integration?",
+            "answer": "Step1:Which association that publishes the Journal of Psychotherapy Integration ?\nAction1:Journal(s=s1:Player[Psychotherapy Integration],p=p1:Publish,o=o1:Association)\nStep2:Who was the first president of that specific association?\nAction2:get_spo(s=o1,p=p2:FirstPresident,o=o2:Person)"
+        },
+        {
+            "query": "When did the state where Pocahontas Mounds is located become part of the United States?",
+            "answer": "Step1:Which State Where Pocahontas Mounds is Located ?\nAction1:get_spo(s=s1:HistoricalSite[Pocahontas Mounds], p=p1:LocatedIn, o=o1:State)\nStep2:When did this state become a part of the United States ？\nAction2:get_spo(s=o1, p=p2:YearOfBecamingPartofTheUnitedStates, o=o2:Date)"
+        },
+        {
+            "query": "Which of the two tornado outbreaks killed the most people?",
+            "answer": "Step1:Which is the first tornado outbreaks ?\nAction1:get_spo(s=s1:Event[Tornado Outbreak], p=p1:TheFirst, o=o1:Event)\nStep2:Which is the second tornado outbreaks ?\nAction2:get_spo(s=s2:Event[Tornado Outbreak], p=p2:TheSecond, o=o2:Event)\nStep3:How many people died in the first tornado outbreak ?\nAction3:get_spo(s=s1, p=p3:KilledPeopleNumber, o=o3:Number)\nStep4:How many people died in the second tornado outbreak ?\nAction4:get_spo(s=s2, p=p4:KilledPeopleNumber, o=o4:Number)\nStep5:To compare the death toll between two tornado outbreaks to determine which one had more fatalities.\nAction5:compare(set=[o3,o4], op=max)"
+        }
+    ],"""
     hy_case_en_v1 = """"cases": [
                         {
                             "query": "顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？",
@@ -130,10 +147,62 @@ class LogicFormPlanPrompt(PromptOp):
                             "answer": "Step1: Define the properties of amorphous Si and its mobility\nAction1: get_spo(s=s1:Material[Amorphous Si], p=p1:Mobility, o=o1:Value)\nStep2: Define the properties of amorphous oxides and their mobility\nAction2: get_spo(s=s2:Material[Amorphous Oxides], p=p2:Mobility, o=o2:Value)\nStep3: Compare the mobility values of amorphous Si and oxides\nAction3: compare(set=[o1, o2], op=min)"
                         }
                 ],"""
+    dmy_case_en_v4 = """"cases": [
+            {
+                "query": "顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？",
+                "answer": "Step1:What is the parasitic capacitance of top-gate structure IGZO?\nAction1:get_spo(s=s1:IGZO, p=p1:ParasiticCapacitance, o=o1:Value, p2:TopGateStructure)\nStep2:What is the parasitic capacitance of bottom-gate structure IGZO?\nAction2:get_spo(s=s2:IGZO, p=p2:ParasiticCapacitance, o=o2:Value, p3:BottomGateStructure)\nStep3:Why is the parasitic capacitance lower for top-gate structure compared to bottom-gate structure?\nAction3:get_spo(s=s1, p=p3:Reason, o=o3:Explanation)"
+            },
+            {
+                "query": "为什么si的非晶态迁移率较低，而氧化物的非晶态迁移率较高？",  
+                "answer": "Step1: Define the properties of amorphous Si and its mobility\nAction1: get_spo(s=s1:Material[Amorphous Si], p=p1:Mobility, o=o1:Value)\nStep2: Define the properties of amorphous oxides and their mobility\nAction2: get_spo(s=s2:Material[Amorphous Oxides], p=p2:Mobility, o=o2:Value)\nStep3: Compare the mobility values of amorphous Si and oxides\nAction3: compare(set=[o1, o2], op=min)"
+            },
+            {
+                "query": "为什么以底栅结构的器件为元件的电路响应速度较慢？",
+                "answer": "Step1: What are the factors that cause circuit slow response speed?\nAction1:get_spo(s=s1:Equipment[Circuit], p=p1:SlowResponseFactors, o=o1)\nStep2: What are the properties of bottom-gate structure device?\nAction2:get_spo(s=s2:Device[Bottom-Gate Device], p=p2:Property, o=o2)\nStep3: What is the specific reasons for the bottom-gate structure device affecting circuit response speed?\nAction3:get_spo(s=o2, p=p2:AffectingResponseSpeed, o=o2:Reason)"
+             },
+             {
+                "query": "氧化物薄膜晶体管TFT 相比于非晶硅TFT和LTPS TFT的优势是什么？",
+                "answer": "Step1: Identify the properties of metal oxide thin film Transistor\nAction1:get_spo(s=s1:Device[Metal Oxide TFT], p=p1:Property, o=o1)\nStep2: Identify the properties of amorphous silicon thin film Transistor\nAction2:get_spo(s=s2:Device[Amorphous Silicon TFT], p=p2:Property, o=o2)\nStep3: Identify the properties of LTPS thin film Transistor\nAction3:get_spo(s=s3:Device[LTPS TFT], p=p3:Property, o=o3)\nStep4: What are the advantage of the properties of metal oxide thin film Transistor over the properties of amorphous silicon thin film Transistor and the properties of LTPS thin film Transistor\nAction4:compare(set=[o1, o2, o3], op=max)"
+             }
+        ],"""
+    dmy_case_en_v5 = """"cases": [
+                {
+                    "query": "Which sports team for which Cristiano Ronaldo played in 2011 was founded last ?",
+                    "answer": "Step1:Which Sports Teams Cristiano Ronaldo Played for in 2011 ?\nAction1:get_spo(s=s1:Player[Cristiano Ronaldo],p=p1:PlayedForIn2011Year,o=o1:SportsTeam)\nStep2:In which year were these teams established ?\nAction2:get_spo(s=o1,p=p2:FoundationYear,o=o2:Year)\nStep3:Which team was founded last ?\nAction3:sort(set=o1, orderby=o2, direction=max, limit=1)"
+                },
+                {
+                    "query": "Who was the first president of the association which published Journal of Psychotherapy Integration?",
+                    "answer": "Step1:Which association that publishes the Journal of Psychotherapy Integration ?\nAction1:Journal(s=s1:Player[Psychotherapy Integration],p=p1:Publish,o=o1:Association)\nStep2:Who was the first president of that specific association?\nAction2:get_spo(s=o1,p=p2:FirstPresident,o=o2:Person)"
+                },
+                {
+                    "query": "When did the state where Pocahontas Mounds is located become part of the United States?",
+                    "answer": "Step1:Which State Where Pocahontas Mounds is Located ?\nAction1:get_spo(s=s1:HistoricalSite[Pocahontas Mounds], p=p1:LocatedIn, o=o1:State)\nStep2:When did this state become a part of the United States ？\nAction2:get_spo(s=o1, p=p2:YearOfBecamingPartofTheUnitedStates, o=o2:Date)"
+                },
+                {
+                    "query": "Which of the two tornado outbreaks killed the most people?",
+                    "answer": "Step1:Which is the first tornado outbreaks ?\nAction1:get_spo(s=s1:Event[Tornado Outbreak], p=p1:TheFirst, o=o1:Event)\nStep2:Which is the second tornado outbreaks ?\nAction2:get_spo(s=s2:Event[Tornado Outbreak], p=p2:TheSecond, o=o2:Event)\nStep3:How many people died in the first tornado outbreak ?\nAction3:get_spo(s=s1, p=p3:KilledPeopleNumber, o=o3:Number)\nStep4:How many people died in the second tornado outbreak ?\nAction4:get_spo(s=s2, p=p4:KilledPeopleNumber, o=o4:Number)\nStep5:To compare the death toll between two tornado outbreaks to determine which one had more fatalities.\nAction5:compare(set=[o3,o4], op=max)"
+                },
+                {
+                    "query": "顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？",
+                    "answer": "Step1:What is the parasitic capacitance of top-gate structure IGZO?\nAction1:get_spo(s=s1:IGZO, p=p1:ParasiticCapacitance, o=o1:Value, p2:TopGateStructure)\nStep2:What is the parasitic capacitance of bottom-gate structure IGZO?\nAction2:get_spo(s=s2:IGZO, p=p2:ParasiticCapacitance, o=o2:Value, p3:BottomGateStructure)\nStep3:Why is the parasitic capacitance lower for top-gate structure compared to bottom-gate structure?\nAction3:get_spo(s=s1, p=p3:Reason, o=o3:Explanation)"
+                },
+                {
+                    "query": "为什么si的非晶态迁移率较低，而氧化物的非晶态迁移率较高？",  
+                    "answer": "Step1: Define the properties of amorphous Si and its mobility\nAction1: get_spo(s=s1:Material[Amorphous Si], p=p1:Mobility, o=o1:Value)\nStep2: Define the properties of amorphous oxides and their mobility\nAction2: get_spo(s=s2:Material[Amorphous Oxides], p=p2:Mobility, o=o2:Value)\nStep3: Compare the mobility values of amorphous Si and oxides\nAction3: compare(set=[o1, o2], op=min)"
+                },
+                {
+                    "query": "为什么以底栅结构的器件为元件的电路响应速度较慢？",
+                    "answer": "Step1: What are the factors that cause circuit slow response speed?\nAction1:get_spo(s=s1:Equipment[Circuit], p=p1:SlowResponseFactors, o=o1)\nStep2: What are the properties of bottom-gate structure device?\nAction2:get_spo(s=s2:Device[Bottom-Gate Device], p=p2:Property, o=o2)\nStep3: What is the specific reasons for the bottom-gate structure device affecting circuit response speed?\nAction3:get_spo(s=o2, p=p2:AffectingResponseSpeed, o=o2:Reason)"
+                 },
+                 {
+                    "query": "氧化物薄膜晶体管TFT 相比于非晶硅TFT和LTPS TFT的优势是什么？",
+                    "answer": "Step1: Identify the properties of metal oxide thin film Transistor\nAction1:get_spo(s=s1:Device[Metal Oxide TFT], p=p1:Property, o=o1)\nStep2: Identify the properties of amorphous silicon thin film Transistor\nAction2:get_spo(s=s2:Device[Amorphous Silicon TFT], p=p2:Property, o=o2)\nStep3: Identify the properties of LTPS thin film Transistor\nAction3:get_spo(s=s3:Device[LTPS TFT], p=p3:Property, o=o3)\nStep4: What are the advantage of the properties of metal oxide thin film Transistor over the properties of amorphous silicon thin film Transistor and the properties of LTPS thin film Transistor\nAction4:compare(set=[o1, o2, o3], op=max)"
+                 }
+            ],"""
     template_en = f"""
 {{
     {instruct_en}
-    {hy_case_en_v1}
+    {dmy_case_en_v5}
     "output_format": "Only output words in answer, for examples: `Step`, `Action` content",
     "query": "$question"
 }}   

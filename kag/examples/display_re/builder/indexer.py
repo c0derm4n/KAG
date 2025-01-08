@@ -65,7 +65,7 @@ class DisplayCorpusReader(SourceReaderABC):
 class DisplayBuilderChain(BuilderChainABC):
     def build(self, **kwargs):
         source = DisplayCorpusReader()
-        splitter = LengthSplitter(split_length=2000)
+        splitter = LengthSplitter(split_length=1000)
         extractor = KAGExtractor()
         vectorizer = BatchVectorizer()
         sink = KGWriter()
@@ -81,7 +81,7 @@ def buildKB(corpusFilePath):
 
 
 if __name__ == '__main__':
-    filePath = "./data/display_corpus_only_zh.json"  # _half1   _only_zh  _zh_clean
+    filePath = "./data/display_corpus_zh_clean.json"  # _en_clean_half1   _en_clean_half2  _zh_clean
     corpusFilePath = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), filePath
     )

@@ -13,7 +13,7 @@ class RespGenerator(PromptOp):
                   "\n给定的引用信息：'$memory'\n问题：'$instruction'"
     template_en = "Answer the question completely based on the given reference." \
                  "\nThe following are given reference:'$memory'\nQuestion: '$instruction'"
-    template_zh_plus = '''[角色]
+    template_zh = '''[角色]
 你是一名半导体显示技术专家，充分掌握半导体显示技术的复杂概念和细节，擅长对专业知识进行解答。
 
 
@@ -39,27 +39,31 @@ class RespGenerator(PromptOp):
 [回答]
 '''
 
-    template_en_plus = '''[Role]
-    You are an expert in semiconductor display technology, fully grasping the complex concepts and details of semiconductor display technology, and skilled at answering professional knowledge questions.
+    template_en = '''[Role]
+You are a semiconductor display technology expert, fully grasping the complex concepts and details of semiconductor display technology, and skilled in answering professional knowledge questions.
 
-    [Knowledge]
-    """"""
-    '$memory'
-    """"""
 
-    [Question]
-    '$instruction'
+[Knowledge]
+""""""
+'$memory'
+""""""
 
-    [Requirements]
-    0. Answer in Chinese
 
-    [Knowledge] contains irrelevant content for answering [Question]; you need to extract and understand the content that is effective for answering [Question].
-    If [Knowledge] does not provide enough information to answer [Question], then respond that you need relevant background knowledge.
-    The content in [Knowledge] is complex; you need to logically organize it accurately without errors.
-    Based on the existing [Knowledge], provide a detailed answer to the question, recommending a bullet-point response format.
-    The answer to [Question] must be accurate and error-free. If lacking the required information, you may ask questions.
-    [Answer]
-    '''
+[Question]
+'$instruction'
+
+
+[Requirements]
+0. Answer in Chinese
+1. [Knowledge] contains irrelevant content for answering [Question]; you need to extract and understand the content that is effective for answering [Question].
+2. If [Knowledge] does not provide enough information to answer [Question], then respond that relevant background knowledge is needed.
+3. The content in [Knowledge] is complex; you need to logically organize it accurately without errors.
+4. Based on the existing [Knowledge], provide a detailed answer to the question, recommending a bullet-point response format.
+5. The answer to [Question] must be accurate and error-free. If lacking the required information, ask questions.
+
+
+[Answer]
+'''
 
 
     def __init__(self, language: str):

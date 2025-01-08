@@ -1,8 +1,13 @@
 import logging
 import os
-
-from kag.common.env import init_kag_config
+import json
+import pandas as pd
 from kag.solver.logic.solver_pipeline import SolverPipeline
+
+from datetime import datetime
+
+now = datetime.now()
+date_time_str = now.strftime("%Y-%m-%d-%H-%M")
 
 logger = logging.getLogger(__name__)
 
@@ -31,26 +36,35 @@ class DisplayDemo:
 
 
 if __name__ == "__main__":
- #    demo = DisplayDemo()
- #    query_list = ['氧化物半导体层中的H、O含量对电子浓度有什么影响?',
- # '顶栅结构的IGZO的寄生电容为什么相对于底栅结构的寄生电容要低？',
- # '在IGZO TFT中，环境气氛中的氧气是如何影响TFT的阈值电压的？',
- # '在IGZO TFT中，进行正栅压应力测试时，为什么以SiOx为钝化层的TFT，其Vth变化量要小于未钝化的TFT？',
- # '顶栅IGZO TFT的难点之一是将SD区域的IGZO进行金属化/导体化，请问下有什么导体化的方式吗？以及它们的机理是什么？',
- # '氧化物半导体TFT可以在制备过程中通过控制氧含量或通过材料元素成分调控氧空位，请问下如果氧化物半导体中氧空位增加，其迁移率一般是如何变化的？为什么会出现这样的结果呢？',
- # '怎么实现短沟道的顶栅氧化物TFT器件且同时避免器件失效？']
- #    answer_list = []
- #    for query in query_list:
- #        answer,trace_log = demo.qa(query)
- #        print(f"Question: {query}")
- #        print(f"Answer: {answer}")
- #        # print(f"TraceLog: {trace_log}")
- #        answer_list.append(answer)
- #    print(answer_list)
+    file_path = '/data/dmy/KAG/kag/examples/微软问题&目标切片-0826-kag测试结果-v7.xlsx'
+    data = pd.read_excel(file_path,sheet_name='Query&目标切片')
+    new_col_names = 'V4(displaysub)补充'  # 需要指定
+    log_list = []
+    for index, row in data.iterrows():
+        if index < 17:
+            continue
+        query = row['Query']
+        print(index, query)
+        print("===================")
+        demo = DisplayDemo()
+        answer, trace_log = demo.qa(query)
+        print(f"Question: {query}")
+        print(f"Answer: {answer}")
+        print(f"TraceLog: {trace_log}")
+        log_list.append({'问题': query, 'TraceLog': trace_log})
+        data.at[index, new_col_names] = answer
 
-    demo = DisplayDemo()
-    query = "氧化物半导体TFT可以在制备过程中通过控制氧含量或通过材料元素成分调控氧空位，请问下如果氧化物半导体中氧空位增加，其迁移率一般是如何变化的？为什么会出现这样的结果呢？"
-    answer, trace_log = demo.qa(query)
-    print(f"Question: {query}")
-    print(f"Answer: {answer}")
-    print(f"TraceLog: {trace_log}")
+    # 保存新的Excel文件
+    new_file_path = '小领域-kag主观题测试结果-{}.xlsx'.format(date_time_str)  # 新文件的保存路径
+    data.to_excel(new_file_path, index=False)  # 保存时不包含行索引
+    print(f"文件已保存至：{new_file_path}")
+    # 保存log
+    with open('TraceLog-{}.json'.format(date_time_str), 'w', encoding='utf-8') as json_file:
+        json.dump(log_list, json_file, ensure_ascii=False, indent=4)
+
+    # demo = DisplayDemo()
+    # query = "高迁氧化物的稳定性为什么比常规igzo的稳定性差"
+    # answer, trace_log = demo.qa(query)
+    # print(f"Question: {query}")
+    # print(f"Answer: {answer}")
+    # print(f"TraceLog: {trace_log}")

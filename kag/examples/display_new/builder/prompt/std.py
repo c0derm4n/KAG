@@ -126,7 +126,7 @@ class OpenIEEntitystandardizationdPrompt(PromptOp):
                 {"entity": "栅极", "category": "Terminology", "official_name": "栅极"},
                 {"entity": "Al 薄膜", "category": "Material", "official_name": "Al 薄膜"},
                 {"entity": "cm2 /Vs", "category": "Unit", "official_name": "cm2 /Vs"},
-                {"entity": "小丘", "category": "Terminology", "official_name": "小丘"}
+                {"entity": "小丘", "category": "Terminology", "official_name": "小丘"},
                 {"entity": "Al-Nd", "category": "Material", "official_name": "Al-Nd"},
                 {"entity": "Al-Ce 合金", "category": "Material", "official_name": "Al-Ce 合金"},
                 {"entity": "Al2O3", "category": "Material", "official_name": "Al2O3"},
@@ -146,8 +146,7 @@ class OpenIEEntitystandardizationdPrompt(PromptOp):
         },
         "input": $input,
         "named_entities": $named_entities,
-    }    
-    ​    """
+    }"""
 
     def __init__(self, language: Optional[str] = "en"):
         super().__init__(language)

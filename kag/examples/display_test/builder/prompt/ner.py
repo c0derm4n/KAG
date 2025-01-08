@@ -33,9 +33,9 @@ class OpenIENERPrompt(PromptOp):
                         {"entity": "temperature", "category": "Parameter"},
                         {"entity": "transparency", "category": "Parameter"},
                         {"entity": "visible light", "category": "Terminology"},
-                        {"entity": "fabrication cost", "category": "Finance"},
+                        {"entity": "fabrication cost", "category": "Others"},
                         {"entity": "poly-Si TFTs", "category": "Device"},
-                        {"entity": "crystallization", "category": "Process"}
+                        {"entity": "crystallization", "category": "Process"},
                         {"entity": "doping ", "category": "Process"},
                         {"entity": "a-Si TFTs ", "category": "Device"},
                         {"entity": "AM displays ", "category": "Device"},
@@ -44,9 +44,57 @@ class OpenIENERPrompt(PromptOp):
                         {"entity": "InGaZnO ", "category": "Material"},
                         {"entity": "IGZO ", "category": "Material"},
                         {"entity": "transistors ", "category": "Device"},
+                        {"entity": "8.3 cm2 /Vs ", "category": "Parameter"},
                         {"entity": "cm2 /Vs", "category": "Unit"},
                         {"entity": "IGZO thin films ", "category": "Material"},
                         {"entity": "room temperature ", "category": "Terminology"}
+                    ]
+            },
+            {
+                "input": "This letter examines the effect of the gate dielectric material on the light-induced bias-temperature instability of an In–Ga–Zn–O (IGZO) thin-film transistor (TFT). After applying positive and negative bias stresses, the SiNx-gated TFT exhibited inferior stability to the SiO2-gated TFT, which was explained by the charge trapping mechanism. However, light illumination under a negative bias stress accelerated the negative displacement of the threshold voltage (Vth) of the SiNx-gated IGZO TFT compared to that of the SiO2-gated TFT. This was attributed to the injection of photocreated hole carriers into the underlying gate dielectric bulk region as well as the hole trapping at the gate/channel interface.\n An IGZO TFT with a PECVD-derived SiO2 gate dielectric exhibited greater bias stability and light-induced bias stability than the device with the SiNx gate dielectric. This phenomenon has been discussed based on a charge trapping mechanism.Therefore, the SiO2-gated IGZO TFTs can be implemented as backplane electronics in the next-generation AM flat panel displays.",
+                "output": [
+                        {"entity": "gate dielectric material", "category": "Material"},
+                        {"entity": "light-induced bias-temperature instability", "category": "Issue"},
+                        {"entity": "applying positive and negative bias stresses", "category": "Test"},
+                        {"entity": "SiNx-gated TFT", "category": "Device"},
+                        {"entity": "SiO2-gated TFT", "category": "Device"},
+                        {"entity": "charge trapping mechanism", "category": "Mechanism"},
+                        {"entity": "light illumination under a negative bias stress", "category": "Process"},
+                        {"entity": "negative displacement of the threshold voltage (Vth)", "category": "Issue"},
+                        {"entity": "injection of photocreated hole carriers into the underlying gate dielectric bulk region", "category": "Mechanism"},
+                        {"entity": "hole trapping at the gate/channel interface", "category": "Mechanism"},
+                        {"entity": "bias stability", "category": "Parameter"},
+                        {"entity": "light-induced bias stability", "category": "Parameter"},
+                        {"entity": "SiO2-gated IGZO TFTs can be implemented as backplane electronics ", "category": "Countermeasure"}
+                    ]
+            },
+            {
+                "input": "The TFT fabrication process as follows. First, a 100 nm thick layer molybdenum (Mo) as bottom gate electrode was grown by direct current (DC) sputtering with Inline Sputtering System room temperature produced by Ulvac Inc. and patterned by wet etching on the glass. Next, a 120 nm thick layer SiO2 as gate insulator (GI) was grown by plasma enhanced chemical vapor deposition (PECVD) at 300°C . The ratio of SiH4 and N2O during SiO2 growth is 20:80 sccm. Afterwards, a 40 nm thick layer a-IZO (In:Zn=1:1) as the active channel was grown by direct current (DC) sputtering at room temperature and patterned by wet etching in a diluted HCl solution. The DC power and gas pressure on sputtering a-IZO were 100 W and 0.4 Pa.",
+                "output": [
+                        {"entity": "TFT fabrication process", "category": "Process"},
+                        {"entity": "100 nm thick layer molybdenum (Mo)", "category": "Material"},
+                        {"entity": "bottom gate electrode", "category": "Terminology"},
+                        {"entity": "direct current (DC) sputtering", "category": "Process"},
+                        {"entity": "Inline Sputtering System", "category": "Equipment"},
+                        {"entity": "Ulvac Inc.", "category": "Company"},
+                        {"entity": "wet etching", "category": "Process"},
+                        {"entity": "glass", "category": "Material"},
+                        {"entity": "120 nm thick layer SiO2", "category": "Material"},
+                        {"entity": "gate insulator (GI) ", "category": "Terminology"},
+                        {"entity": "plasma enhanced chemical vapor deposition (PECVD)", "category": "Process"},
+                        {"entity": "300°C", "category": "Parameter"},
+                        {"entity": "ratio of SiH4 and N2O during SiO2 growth", "category": "Parameter"},
+                        {"entity": "20:80 sccm", "category": "Parameter"},
+                        {"entity": "40 nm thick layer a-IZO (In:Zn=1:1) ", "category": "Material"},
+                        {"entity": "active channel", "category": "Terminology"},
+                        {"entity": "diluted HCl solution", "category": "Material"},
+                        {"entity": "DC power", "category": "Parameter"},
+                        {"entity": "gas pressure", "category": "Parameter"},
+                        {"entity": "a-IZO", "category": "Material"},
+                        {"entity": "0.4 Pa", "category": "Parameter"},
+                        {"entity": "100 W", "category": "Parameter"},
+                        {"entity": "Pa", "category": "Unit"},
+                        {"entity": "W", "category": "Unit"}
                     ]
             }
         ],
@@ -77,7 +125,7 @@ class OpenIENERPrompt(PromptOp):
                             {"entity": "AMOLED 显示屏 ", "category": "Device"},
                             {"entity": "栅极", "category": "Terminology"},
                             {"entity": "Al 薄膜", "category": "Material"},
-                            {"entity": "cm2 /Vs", "category": "Unit"}
+                            {"entity": "cm2 /Vs", "category": "Unit"},
                             {"entity": "小丘", "category": "Terminology"},
                             {"entity": "Al-Nd", "category": "Material"},
                             {"entity": "Al-Ce 合金", "category": "Material"},

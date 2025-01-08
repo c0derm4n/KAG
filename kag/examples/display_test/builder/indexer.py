@@ -74,7 +74,7 @@ class DisplayBuilderChain(BuilderChainABC):
 
 
 def buildKB(corpusFilePath):
-    DisplayBuilderChain().invoke(file_path=corpusFilePath, max_workers=30)
+    DisplayBuilderChain().invoke(file_path=corpusFilePath, max_workers=20)
 
     logger.info(f"\n\nbuildKB successfully for {corpusFilePath}\n\n")
 
@@ -84,7 +84,7 @@ def buildKB(corpusFilePath):
 
 if __name__ == '__main__':
 
-    filePath = "./data/display_corpus_zh_clean.json" # en   _half1    _half2
+    filePath = "./data/display_corpus_en_clean_half2.json" # display_corpus_en_clean_half1    _half2  zh_clean
     corpusFilePath = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), filePath
     )

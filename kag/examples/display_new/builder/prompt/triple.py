@@ -103,7 +103,7 @@ class OpenIETriplePrompt(PromptOp):
                 {"entity": "自由电子", "category": "Terminology"},
                 {"entity": "金属氧化物半导体", "category": "Material"},
                 {"entity": "FPD", "category": "Device"}
-        ​    ],
+            ],
             "output":[
                 ["栅极绝缘层", "决定", "决定着薄膜晶体管的击穿电压、泄漏电流等重要工作参数"],
                 ["高介电常数、高质量的栅极绝缘层", "显得", "极为重要"],
@@ -123,7 +123,7 @@ class OpenIETriplePrompt(PromptOp):
                 ["Ce", "产生", "电荷陷阱缺陷"],
                 ["Ce", "恶化", "器件的电学性能"],
                 ["Nd", "抑制", "氧空位"],
-                ["Nd", "抑制", "自由电子"]，
+                ["Nd", "抑制", "自由电子"],
                 ["Nd", "改善", "器件的电学性能"],
                 ["Nd 与金属氧化物半导体", "具有", "较好的兼容性"]
             ]
