@@ -102,15 +102,15 @@ Use the following commands to download the docker-compose.yml file and launch th
 # set the HOME environment variable (only Windows users need to execute this command)
 # set HOME=%USERPROFILE%
 
-curl -sSL https://raw.githubusercontent.com/OpenSPG/openspg/refs/heads/master/dev/release/docker-compose.yml -o docker-compose.yml
-docker compose -f docker-compose.yml up -d
+curl -sSL https://raw.githubusercontent.com/OpenSPG/openspg/refs/heads/master/dev/release/docker-compose-west.yml -o docker-compose-west.yml
+docker compose -f docker-compose-west.yml up -d
 ```
 
 ### 4.1.2 Use the product
 
 Navigate to the default url of the KAG product with your browser: <http://127.0.0.1:8887>
 
-See the [Product](https://openspg.yuque.com/ndx6g9/wc9oyq/rgd8ecefccwd1ga5) guide for detailed introduction.
+See [KAG usage (product mode)](https://openspg.yuque.com/ndx6g9/cwh47i/rs7gr8g4s538b1n7#rtOlA) for detailed introduction.
 
 ## 4.2 toolkit-based (for developers)
 
@@ -145,7 +145,7 @@ Refer to the 3.1 section to complete the installation of the engine & dependent 
 
 ### 4.2.3 Use the toolkit
 
-Please refer to the [Quick Start](https://openspg.yuque.com/ndx6g9/wc9oyq/owp4sxbdip2u7uvv) guide for detailed introduction of the toolkit. Then you can use the built-in components to reproduce the performance results of the built-in datasets, and apply those components to new busineness scenarios.
+Please refer to [KAG usage (developer mode)](https://openspg.yuque.com/ndx6g9/cwh47i/rs7gr8g4s538b1n7#cikso) guide for detailed introduction of the toolkit. Then you can use the built-in components to reproduce the performance results of the built-in datasets, and apply those components to new busineness scenarios.
 
 # 5. Technical Architecture
 
