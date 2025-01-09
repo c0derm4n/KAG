@@ -32,15 +32,4 @@ if __name__ == "__main__":
     import_modules_from_path(".")
     dir_path = os.path.dirname(__file__)
     file_path = os.path.join(dir_path, "data/2wiki_sub_corpus.json")
-
-<<<<<<< HEAD
-if __name__ == '__main__':
-    filePath = "./data/2wiki_sub_corpus.json"
-    filePath = "./data/2wiki_corpus.json"
-    corpusFilePath = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), filePath
-    )
-    buildKB(corpusFilePath)
-=======
     buildKB(file_path)
->>>>>>> 1131dbbb28463c15eb81c6f8854c7b33718f7061

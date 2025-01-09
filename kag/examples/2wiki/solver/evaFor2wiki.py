@@ -126,13 +126,6 @@ if __name__ == "__main__":
 
     start_time = time.time()
     filePath = "./data/2wiki_qa_sub.json"
-<<<<<<< HEAD
-    filePath = "./data/2wiki_qa.json"
-    qaFilePath = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), filePath
-    )
-=======
->>>>>>> 1131dbbb28463c15eb81c6f8854c7b33718f7061
 
     evalObj.qa("When did Lothair Ii's mother die?")
 
